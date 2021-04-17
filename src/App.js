@@ -18,6 +18,7 @@ function App() {
 
   function addTodo(e){
     e.preventDefault();
+    if(todoInput.trim().length !==0){
     db.collection("todos").add({
       inProgress: true,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -25,6 +26,7 @@ function App() {
     })
     setTodoInput("");
   }
+}
 
   function getTodos(){
     db.collection("todos").onSnapshot(function(querySnapshot){
@@ -35,6 +37,11 @@ function App() {
       })));
   })
   }
+ //function blank_todo(e){
+  // let data= e.target.value;
+//   if(data=== ""){ alert("to-do cannot be empty");}
+//   else {setTodoInput(data);}
+ //}
 
   return (
     <div className="App" >
@@ -47,7 +54,10 @@ function App() {
 
   <h1>Ritika Awasthy's To-do App🌸</h1>
   <form>
-  <TextField id="standard-basic" onChange={(e)=>setTodoInput(e.target.value)} value={todoInput} label="write a to-do" style={{maxWidth: "500px", width: "90vw"}}/>
+  <TextField id="standard-basic" onChange={(e)=>setTodoInput(e.target.value)}
+    value={todoInput}
+    label="write a to-do"
+    style={{maxWidth: "500px", width: "90vw"}}/>
   <Button variant="contained" onClick={addTodo} type="submit" color="secondary">Enter</Button>
   </form>
   <div style={{maxWidth: "500px", width: "90vw" , marginTop: "24px"}}>
